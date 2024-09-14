@@ -1,0 +1,135 @@
+
+
+-- Estrutura do Banco
+
+
+CREATE TABLE beneficiarios_sopa (  
+
+    id INT AUTO_INCREMENT PRIMARY KEY,  
+
+    nome VARCHAR(100) NOT NULL,  
+
+    endereco VARCHAR(255),  
+
+    telefone VARCHAR(20),  
+
+    data_referencia DATE,  
+
+    quantidade_sopa DECIMAL(5, 2), -- Quantidade de sopa recebida (em litros ou outro formato)  
+
+    observacoes TEXT,  
+
+    data_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP  
+
+);  
+
+   
+
+INSERT INTO beneficiarios_sopa (nome, endereco, telefone, data_referencia, quantidade_sopa, observacoes) 
+
+VALUES ('Ana Souza', 'Rua das Margaridas, 45', '99876-5432', '2024-09-10', 3.0, 'Beneficiária regular');  
+
+   INSERT INTO beneficiarios_sopa (nome, endereco, telefone, data_referencia, quantidade_sopa, observacoes)  
+
+VALUES ('Carlos Lima', 'Avenida das Palmeiras, 123', '98765-4321', '2024-09-10', 3.0, 'Precisa de acompanhamento');  
+
+  
+
+-- Tabela de Cursos
+
+ 
+
+CREATE TABLE cursos (  
+
+    id INT AUTO_INCREMENT PRIMARY KEY,  
+
+    nome VARCHAR(100) NOT NULL,  
+
+    descricao TEXT,  
+
+    data_inicio DATE,  
+
+    data_fim DATE,  
+
+    instrutor VARCHAR(100),  
+
+    tipo ENUM('Muay Thai', 'Eletrônica Básica') NOT NULL,  
+
+    data_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP  
+
+);  
+
+INSERT INTO cursos (nome, descricao, data_inicio, data_fim, instrutor, tipo)  
+
+VALUES ('Curso de Muay Thai', 'Curso básico de Muay Thai para iniciantes.', '2024-10-01', '2024-12-15', 'Ricardo dantas', 'Muay Thai');   
+
+INSERT INTO cursos (nome, descricao, data_inicio, data_fim, instrutor, tipo)  
+
+VALUES ('Curso de Eletrônica Básica', 'Curso introdutório sobre fundamentos de eletrônica.', '2024-11-01', '2025-01-15', 'Emerson Ferreira de Lima', 'Eletrônica Básica');  
+
+       
+
+-- Tabela de Alunos
+
+ 
+
+CREATE TABLE alunos (  
+
+id INT AUTO_INCREMENT PRIMARY KEY,  
+
+    nome VARCHAR(100) NOT NULL,  
+
+    data_nascimento DATE,  
+
+    endereco VARCHAR(255),  
+
+    telefone VARCHAR(20),  
+
+    email VARCHAR(100),  
+
+    data_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP  
+
+);  
+
+ -- Tabela de Matrículas
+
+ 
+
+CREATE TABLE matriculas (  
+
+    id INT AUTO_INCREMENT PRIMARY KEY,  
+
+    aluno_id INT,  
+
+    curso_id INT,  
+
+    data_matricula TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  
+
+    FOREIGN KEY (aluno_id) REFERENCES alunos(id) ON DELETE CASCADE,  
+
+    FOREIGN KEY (curso_id) REFERENCES cursos(id) ON DELETE CASCADE  
+
+);  
+
+INSERT INTO alunos (nome, data_nascimento, endereco, telefone, email)  
+
+VALUES ('João da Silva', '2000-05-15', 'Rua das Flores, 123', '98765-4321', 'joao.silva@email.com');  
+
+   
+
+INSERT INTO alunos (nome, data_nascimento, endereco, telefone, email)  
+
+VALUES ('Maria Oliveira', '1998-11-23', 'Avenida Central, 456', '91234-5678', 'maria.oliveira@email.com');  
+
+   
+
+INSERT INTO matriculas (aluno_id, curso_id)  
+
+VALUES (1, 1); -- Supondo que 1 é o ID do aluno João e 1 é o ID do curso de Muay Thai  
+
+   
+
+INSERT INTO matriculas (aluno_id, curso_id)  
+
+VALUES (2, 2); -- Supondo que 2 é o ID do aluno Maria e 2 é o ID do curso de Eletrônica Básica  
+
